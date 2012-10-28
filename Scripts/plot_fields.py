@@ -32,7 +32,7 @@ def dark_matter_finder( x_galaxy, y_galaxy, e1, e2, x_halo, y_halo):
         
         # Find out the angle each galaxy is at with respects to my guessed position of the halo
     angle_wrt_halo = np.arctan((y_galaxy-y_halo)/(x_galaxy-x_halo))
-        
+    
         # Calculate the total signal for a halo at my guessed position
     signal = np.sum( -(e1*np.cos(2.0*angle_wrt_halo) + \
                     e2*np.sin(2.0*angle_wrt_halo)) )
@@ -43,8 +43,8 @@ def dark_matter_finder( x_galaxy, y_galaxy, e1, e2, x_halo, y_halo):
 path = '/n/des/julia/DarkWorlds/'
 
 
-start_sky = 1
-end_sky = 30
+start_sky = 101
+end_sky = 121
 
 for i in range(start_sky, end_sky):
 
@@ -53,12 +53,12 @@ for i in range(start_sky, end_sky):
     
     str_sky = str(sky_num)
     
-    file_halo = path + 'Data/Training_halos.csv'
+    file_halo = '../Data/Training_halos.csv'
     nh, xr, yr, h1x, h1y, h2x, h2y, h3x, h3y = np.loadtxt(file_halo,delimiter=',',unpack=True,usecols=(1,2,3,4,5,6,7,8,9),skiprows=1)
     
     
     
-    file = path + 'Data/Train_Skies/Training_Sky'+str_sky+'.csv'
+    file = '../Data/Train_Skies/Training_Sky'+str_sky+'.csv'
     x,y,e1,e2=np.loadtxt(file,delimiter=',',unpack=True,usecols=(1,2,3,4),skiprows=1)
 
 
@@ -80,8 +80,6 @@ for i in range(start_sky, end_sky):
     box = ax.get_position()
     ax.set_position([box.x0, box.y0, box.width*0.8, box.height])
     leg = ax.legend( loc='center left', bbox_to_anchor= (1,0.5), prop={'size':10})
-    plt.show()
-    plt.clf()
     #print x
   
     ############ ADD COLOR MAP
@@ -98,7 +96,9 @@ for i in range(start_sky, end_sky):
  
             gridded_map[i,j] = dark_matter_finder(x, y, e1, e2, x_halo, y_halo)
 
-    plt.imshow(gridded_map,origin='lower')
+    fig2 = plt.figure(2)       
+
+    plt.imshow(gridded_map.T,origin='lower')
     plt.colorbar()
     plt.show()
 
