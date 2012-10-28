@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 # ====================================================================
 # Authors:
 # Maria Elidaiana - mariaeli@cbpf.br
@@ -7,7 +7,7 @@
 # modified by JCY
 # ====================================================================
 
-"""Code to plot ellips in the standard WL conventions"""
+"""Code for plotting ellipticity, shear maps, and other WL-related visualization"""
 # Usage example : python simplestarplot.py "a611.starsOnStars.test.lhsChip.cat"
 import sys
 import pylab as pl
