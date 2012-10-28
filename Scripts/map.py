@@ -23,6 +23,7 @@ if __name__ == "__main__":
     from numpy import *
     import numpy.random
     import matplotlib.pyplot as plt
+    import jcy_simplestarplot
     """
     Main program to determine the position of a halo
     """
@@ -45,6 +46,8 @@ if __name__ == "__main__":
             gridded_map[i,j] = dark_matter_finder(x_galaxy, y_galaxy, e1, e2,\
                                             x_halo, y_halo)
 
-    plt.imshow(gridded_map,origin='lower')
+    jcy_simplestarplot.plotstars(x_galaxy,y_galaxy,e1,e2)
+    plt.imshow(gridded_map.T,origin='lower')
     plt.colorbar()
     plt.show()
+    
