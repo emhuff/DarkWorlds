@@ -23,7 +23,8 @@ def dark_matter_finder( x_galaxy, y_galaxy, e1, e2, x_halo, y_halo):
         
     return signal
     
-def main(argv):
+#def main(argv):
+if __name__ == "__main__":   
   """
   Main program to determine the position of a halo
   """
@@ -31,11 +32,11 @@ def main(argv):
   x_galaxy, y_galaxy, e1, e2 = loadtxt('../Data/Test_Sky1.csv', usecols=(1, 2, 3, 4),\
                                        skiprows=1, unpack=True)
  
-  #I want to search the sky in a grid like fashion, so I want to split # the sky
-  #up and find the signal at each point in the grid
+  #I want to search the sky in a grid like fashion, so I want to split
+  # the sky up and find the signal at each point in the grid
   Number_of_bins = 10
   Sky_size = 4200.0
- 
+
   #It is square in all cases
   Binwidth = Sky_size/float(Number_of_bins)
   gridded_map= zeros([Number_of_bins, Number_of_bins], float)
@@ -46,7 +47,6 @@ def main(argv):
  
       gridded_map[i,j] = dark_matter_finder(x_galaxy, y_galaxy, e1, e2,\
                                             x_halo, y_halo)
- 
   estimated_x_position_halo=where(signal == max(gridded_map))[0][0]*binwidth
   estimated_y_position_halo=where(signal == max(gridded_map))[1][0]*binwidth
-
+  
