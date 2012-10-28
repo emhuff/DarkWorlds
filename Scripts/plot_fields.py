@@ -19,6 +19,26 @@ import jcy_simplestarplot as jcy
 import csv
 from matplotlib.font_manager import FontProperties
 
+def dark_matter_finder( x_galaxy, y_galaxy, e1, e2, x_halo, y_halo):
+    """
+    Function to calculate the Dark Matter signal around a proposed position
+    Arguments :
+    x_galaxy, y_galaxy: Vectors containing the x and y coordinate of each galaxy in the sky
+    e1, e2: The 2 components of ellipticity for each galaxy in the sky
+    x_halo, y_halo: The estimated coordinates of the halo
+    Returns :
+    signal : Scalar value of the total signal given the proposed halo
+    """ 
+        
+        # Find out the angle each galaxy is at with respects to my guessed position of the halo
+    angle_wrt_halo = np.arctan((y_galaxy-y_halo)/(x_galaxy-x_halo))
+        
+        # Calculate the total signal for a halo at my guessed position
+    signal = np.sum( -(e1*np.cos(2.0*angle_wrt_halo) + \
+                    e2*np.sin(2.0*angle_wrt_halo)) )
+        
+    return signal
+   
 ####### Read in data files
 path = '/n/des/julia/DarkWorlds/'
 
@@ -61,7 +81,25 @@ for i in range(start_sky, end_sky):
     ax.set_position([box.x0, box.y0, box.width*0.8, box.height])
     leg = ax.legend( loc='center left', bbox_to_anchor= (1,0.5), prop={'size':10})
     plt.show()
-    print raw_input("hold")
     plt.clf()
     #print x
   
+    ############ ADD COLOR MAP
+    Number_of_bins = 50
+    Sky_size = 4200.0
+
+  #It is square in all cases
+    binwidth = Sky_size/float(Number_of_bins)
+    gridded_map= np.zeros([Number_of_bins, Number_of_bins], float)
+    for i in xrange(Number_of_bins):
+        for j in xrange(Number_of_bins):
+            x_halo = i*binwidth # Proposed x position of the halo
+            y_halo = j*binwidth # Proposed y position of the halo
+ 
+            gridded_map[i,j] = dark_matter_finder(x, y, e1, e2, x_halo, y_halo)
+
+    plt.imshow(gridded_map,origin='lower')
+    plt.colorbar()
+    plt.show()
+
+    print raw_input("hold")
