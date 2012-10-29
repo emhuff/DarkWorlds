@@ -41,11 +41,9 @@ def plotstars_color(x,y,e0_bef,e1_bef,color):
     plt.plot([x[i]-delta_x[i]/2,x[i]+delta_x[i]/2],[y[i]-delta_y[i]/2, y[i]+delta_y[i]/2], color)
 
 
-def plot_field_galaxies(h1x,h1y,h2x,h2y,h3x,h3y, gx, gy, e1, e2, save, sky_num, name):
+def plot_field_galaxies(h1x,h1y,h2x,h2y,h3x,h3y, gx, gy, e1, e2, save, sky_num, name, ax):
   str_sky = str(sky_num)
   sky_p = sky_p = sky_num - 1
-  fig1 = plt.figure(1)       
-  ax = fig1.add_subplot(111)
   ax.set_xlabel('X')
   ax.set_ylabel('Y')
   ax.set_title('Sky '+ str_sky)
