@@ -19,13 +19,12 @@ import jcy_simplestarplot as jcy
 import csv
 from matplotlib.font_manager import FontProperties
 from shearcalc import dark_matter_finder
+import shearplots as splot
 
 ####### Read in data files
-path = '/n/des/julia/DarkWorlds/'
 
-
-start_sky = 101
-end_sky = 121
+start_sky = 201
+end_sky = 221
 
 for i in range(start_sky, end_sky):
 
@@ -43,26 +42,13 @@ for i in range(start_sky, end_sky):
     x,y,e1,e2=np.loadtxt(file,delimiter=',',unpack=True,usecols=(1,2,3,4),skiprows=1)
 
 
+
+    name = '../Plots'
+    save = 1
+    
     ################ PLOT SKY
-    fig1 = plt.figure(1)       
-    ax = fig1.add_subplot(111)
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_title('Sky '+str_sky)
-    if h1x[sky_p] > 0: 
-        ax.plot(h1x[sky_p],h1y[sky_p],'r+', label = 'Halo One')
-    if h2x[sky_p] > 0: 
-        ax.plot(h2x[sky_p],h2y[sky_p],'rx', label = 'Halo Two')
-    if h3x[sky_p] > 0: 
-        ax.plot(h3x[sky_p],h3y[sky_p],'r*', label = 'Halo Three')
-     
-    scale = 500
-    jcy.plotstars_s(x,y,e1,e2, scale)
-    box = ax.get_position()
-    ax.set_position([box.x0, box.y0, box.width*0.8, box.height])
-    leg = ax.legend( loc='center left', bbox_to_anchor= (1,0.5), prop={'size':10})
-    #print x
-  
+    splot.plot_field_galaxies(h1x,h1y,h2x,h2y,h3x,h3y, x, y, e1, e2, save, sky_num, name)
+    
     ############ ADD COLOR MAP
     Number_of_bins = 50
     Sky_size = 4200.0
@@ -79,7 +65,7 @@ for i in range(start_sky, end_sky):
 
     fig2 = plt.figure(2)       
 
-    plt.imshow(gridded_map.T,origin='lower')
+    plt.imshow(gridded_map.T,origin='lower', cmap='BuPu')
     plt.colorbar()
     plt.show()
 
