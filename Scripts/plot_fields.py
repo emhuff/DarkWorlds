@@ -24,8 +24,8 @@ import shearcalc as scalc
 
 ####### Read in data files
 
-start_sky = 21
-end_sky = 60
+start_sky = 1
+end_sky = 20
 
 for i in range(start_sky, end_sky):
 
