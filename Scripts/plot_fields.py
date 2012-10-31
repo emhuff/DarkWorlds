@@ -25,7 +25,7 @@ import shearcalc as scalc
 ####### Read in data files
 
 start_sky = 1
-end_sky = 20
+end_sky = 11
 
 for i in range(start_sky, end_sky):
 
@@ -54,6 +54,7 @@ for i in range(start_sky, end_sky):
     X_h,Y_h = np.meshgrid(xs, ys)
     Z_ml = scalc.func3(X_h, Y_h)
     Z_sm = scalc.func3(X_h, Y_h)
+    Z_matched = scalc.func3(X_h, Y_h)
     
     for i in xrange(Number_of_bins):
         for j in xrange(Number_of_bins):
@@ -62,6 +63,7 @@ for i in range(start_sky, end_sky):
             gridded_map[i,j] = scalc.dark_matter_finder_ml(x, y, e1, e2, x_halo, y_halo)
             Z_ml[i,j] = scalc.dark_matter_finder_ml(x, y, e1, e2, x_halo, y_halo)
             Z_sm[i,j] = scalc.dark_matter_finder_sm(x, y, e1, e2, x_halo, y_halo)
+            Z_matched[i,j] = scalc.dark_matter_finder_matched(x, y, e1, e2, x_halo, y_halo)
             
     name = '../Plots'
     save = 1
@@ -77,6 +79,13 @@ for i in range(start_sky, end_sky):
     ax2 = fig2.add_subplot(111)
     splot.plot_field_galaxies(h1x,h1y,h2x,h2y,h3x,h3y, x, y, e1, e2, save, sky_num, name, ax2)
     plt.pcolormesh(X_h, Y_h, Z_sm.T , cmap='BuPu')
+
+    ################ PLOT SKY FOR MATCHED FILTER
+    fig3 = plt.figure(3)       
+    ax3 = fig3.add_subplot(111)
+    splot.plot_field_galaxies(h1x,h1y,h2x,h2y,h3x,h3y, x, y, e1, e2, save, sky_num, name, ax3)
+    plt.pcolormesh(X_h, Y_h, Z_matched.T , cmap='BuPu')
+
 
     plt.show()
     

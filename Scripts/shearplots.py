@@ -48,12 +48,15 @@ def plot_field_galaxies(h1x,h1y,h2x,h2y,h3x,h3y, gx, gy, e1, e2, save, sky_num, 
   ax.set_ylabel('Y')
   ax.set_title('Sky '+ str_sky)
   if h1x[sky_p] > 0: 
+    #    ax.plot(h1x[sky_p],h1y[sky_p],'r+', label = 'Halo One', markersize=10., markeredgewidth=5.)
     ax.plot(h1x[sky_p],h1y[sky_p],'r+', label = 'Halo One')
   if h2x[sky_p] > 0: 
+    #    ax.plot(h2x[sky_p],h2y[sky_p],'rx', label = 'Halo Two', markersize=10., markeredgewidth=5.)
     ax.plot(h2x[sky_p],h2y[sky_p],'rx', label = 'Halo Two')
   if h3x[sky_p] > 0: 
+    #    ax.plot(h3x[sky_p],h3y[sky_p],'r*', label = 'Halo Three', markersize = 10., markeredgewidth=5.)
     ax.plot(h3x[sky_p],h3y[sky_p],'r*', label = 'Halo Three')
-  
+
   scale = 500
   plotstars_s(gx,gy,e1,e2, scale)
   box = ax.get_position()
