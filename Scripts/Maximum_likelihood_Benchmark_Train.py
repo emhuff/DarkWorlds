@@ -26,7 +26,7 @@ import csv as c
 
 if __name__ == "__main__":
 	
-	n_skies=file_len('../Data/Test_haloCounts.csv')-1 #The number of skies in total
+	n_skies=file_len('../Data/Training_halos_h1.csv')-1 #The number of skies in total
 	halos=3 #Number of halos in the most complicated sky
 	position_halo=np.zeros([n_skies,2,halos],float) #The array in which
 							#I will record the position
@@ -34,14 +34,14 @@ if __name__ == "__main__":
 
 	nhalo = np.zeros([n_skies],float)
 	col=np.zeros([1],int)+1
-	nhalo=np.loadtxt('../Data/Test_haloCounts.csv',\
+	nhalo=np.loadtxt('../Data/Training_halos_h1.csv',\
 			 usecols=(1,),skiprows=1,delimiter=',')
 
             #Read in num_halos
 
 	for k in xrange(n_skies):
 		p=k+1
-		x,y,e1,e2=np.loadtxt('../Data/Test_Skies/Test_Sky%i.csv' % p,\
+		x,y,e1,e2=np.loadtxt('../Data/Train_Skies/Training_Sky%i.csv' % p,\
 				     delimiter=',',unpack=True,usecols=(1,2,3,4),skiprows=1)
 				#Read in the x,y,e1 and e2
 				#positions of each galaxy in the list for sky number k:
@@ -93,7 +93,7 @@ if __name__ == "__main__":
 						#this is in the sky.
 	
 	
-	c = c.writer(open("Maximum_likelihood_Benchmark_test.csv", "wb")) #Now write the array to a csv file
+	c = c.writer(open("Maximum_likelihood_Benchmark_Train.csv", "wb")) #Now write the array to a csv file
 	c.writerow([str('SkyId'),str('pred_x1'),str( 'pred_y1'),str( 'pred_x2'),str( 'pred_y2'),str( 'pred_x3'),str(' pred_y3')])
 	for k in xrange(n_skies):
 		halostr=['Sky'+str(k+1)] #Create a string that will write
