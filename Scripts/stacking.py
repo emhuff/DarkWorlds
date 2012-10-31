@@ -85,7 +85,10 @@ def stacked_log_likelihood(pars):
 
 
 initial_guess= np.array([0.3,300])
-outpars = minimize(stacked_log_likelihood,initial_guess,method="nelder-mead", options = {'xtol':1e-6, 'disp':True})
+try: 
+    outpars = minimize(stacked_log_likelihood,initial_guess,method="nelder-mead", options = {'xtol':1e-6, 'disp':True})
+except:
+    outpars = 1. #something involving curvefit
 
 print "Final parameters are: "+str(outpars.x)
 #plt.plot(bin_centers,shear_profile,"r")
